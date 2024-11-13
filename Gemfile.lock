@@ -42,26 +42,25 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
-    actionpack (7.2.2)
-      actionview (= 7.2.2)
-      activesupport (= 7.2.2)
+    actionpack (8.0.0)
+      actionview (= 8.0.0)
+      activesupport (= 8.0.0)
       nokogiri (>= 1.8.5)
-      racc
-      rack (>= 2.2.4, < 3.2)
+      rack (>= 2.2.4)
       rack-session (>= 1.0.1)
       rack-test (>= 0.6.3)
       rails-dom-testing (~> 2.2)
       rails-html-sanitizer (~> 1.6)
       useragent (~> 0.16)
-    actionview (7.2.2)
-      activesupport (= 7.2.2)
+    actionview (8.0.0)
+      activesupport (= 8.0.0)
       builder (~> 3.1)
       erubi (~> 1.11)
       rails-dom-testing (~> 2.2)
       rails-html-sanitizer (~> 1.6)
-    activemodel (7.2.2)
-      activesupport (= 7.2.2)
-    activesupport (7.2.2)
+    activemodel (8.0.0)
+      activesupport (= 8.0.0)
+    activesupport (8.0.0)
       base64
       benchmark (>= 0.3)
       bigdecimal
@@ -73,6 +72,7 @@ GEM
       minitest (>= 5.1)
       securerandom (>= 0.3)
       tzinfo (~> 2.0, >= 2.0.5)
+      uri (>= 0.13.1)
     addressable (2.8.7)
       public_suffix (>= 2.0.2, < 7.0)
     aliyun-sdk (0.8.0)
@@ -132,8 +132,8 @@ GEM
       irb (~> 1.10)
       reline (>= 0.3.8)
     declarative (0.0.20)
-    delayed_job (4.1.12)
-      activesupport (>= 3.0, < 8.0)
+    delayed_job (4.1.13)
+      activesupport (>= 3.0, < 9.0)
     diff-lcs (1.5.1)
     digest-xxhash (0.2.8)
     docile (1.1.5)
@@ -382,9 +382,9 @@ GEM
     rails-html-sanitizer (1.6.0)
       loofah (~> 2.21)
       nokogiri (~> 1.14)
-    railties (7.2.2)
-      actionpack (= 7.2.2)
-      activesupport (= 7.2.2)
+    railties (8.0.0)
+      actionpack (= 8.0.0)
+      activesupport (= 8.0.0)
       irb (~> 1.13)
       rackup (>= 1.0.0)
       rake (>= 12.2)
@@ -557,6 +557,7 @@ GEM
       concurrent-ruby (~> 1.0)
     uber (0.1.0)
     unicode-display_width (2.6.0)
+    uri (1.0.1)
     useragent (0.16.10)
     vhd (0.0.4)
       bit-struct
@@ -578,9 +579,9 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  actionpack (~> 7.2.2)
-  actionview (~> 7.2.1)
-  activemodel (~> 7.2.1)
+  actionpack (~> 8.0.0)
+  actionview (~> 8.0.0)
+  activemodel (~> 8.0.0)
   addressable
   allowy (>= 2.1.0)
   azure-storage-blob!
@@ -629,7 +630,7 @@ DEPENDENCIES
   public_suffix
   puma
   rack-test
-  railties (~> 7.2.1)
+  railties (~> 8.0.0)
   rake
   redis
   roodi
