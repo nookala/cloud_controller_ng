@@ -1,7 +1,7 @@
 require 'messages/metadata_base_message'
 
 module VCAP::CloudController
-  class UserUpdateMessage < MetadataBaseMessage
+  class UserUpdateMessage < RateLimitsBaseMessage
     register_allowed_keys []
 
     validates_with NoAdditionalKeysValidator

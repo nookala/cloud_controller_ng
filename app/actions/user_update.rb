@@ -10,6 +10,7 @@ module VCAP::CloudController
     def update(user:, message:)
       User.db.transaction do
         MetadataUpdate.update(user, message)
+        RateLimitsUpdate.update(user, message)
       end
 
       @logger.info("Finished updating metadata on user #{user.guid}")

@@ -28,6 +28,9 @@ module VCAP::CloudController::Presenters::V3
           labels: hashified_labels(user.labels),
           annotations: hashified_annotations(user.annotations)
         },
+        rate_limits: {
+          custom_request_limit: user.tnz_user_attributes
+        },
         links: build_links
       }
     end

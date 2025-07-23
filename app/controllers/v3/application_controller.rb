@@ -166,6 +166,8 @@ class ApplicationController < ActionController::Base
   ###
 
   def enforce_authentication?
+    require 'pry'
+    binding.pry
     ANONYMOUSLY_AVAILABLE.exclude?(action_name)
   end
 

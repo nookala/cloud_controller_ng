@@ -1,7 +1,7 @@
-require 'messages/metadata_base_message'
+require 'messages/rate_limits_base_message'
 
 module VCAP::CloudController
-  class UserCreateMessage < MetadataBaseMessage
+  class UserCreateMessage < RateLimitsBaseMessage
     register_allowed_keys %i[guid origin username]
 
     class UserCreateValidator < ActiveModel::Validator

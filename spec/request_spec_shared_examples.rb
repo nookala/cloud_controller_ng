@@ -158,6 +158,8 @@ RSpec.shared_examples 'permissions for single object endpoint' do |roles|
 
           expect(expected_events.call(email)).to be_reported_as_events if expected_events
         elsif (400...499).cover? expected_response_code
+          require 'pry'
+          binding.pry
           expected_errors = expected_codes_and_responses[role][:errors]
           expect({ errors: errors_without_test_mode_info(parsed_response) }).to match_json_response({ errors: expected_errors }) unless expected_errors.nil?
         end
@@ -213,6 +215,8 @@ RSpec.shared_examples 'permissions for delete endpoint' do |roles|
                                                                       }))
           end
         elsif (400...499).cover? expected_response_code
+            require 'pry'
+          binding.pry
           expected_errors = expected_codes_and_responses[role][:errors]
           expect({ errors: errors_without_test_mode_info(parsed_response) }).to match_json_response({ errors: expected_errors }) unless expected_errors.nil?
         end

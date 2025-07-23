@@ -9,6 +9,8 @@ require 'fetchers/user_list_fetcher'
 
 class UsersController < ApplicationController
   def index
+      require 'pry'
+    binding.pry
     message = UsersListMessage.from_params(query_params)
     unprocessable!(message.errors.full_messages) unless message.valid?
 
@@ -29,6 +31,8 @@ class UsersController < ApplicationController
   end
 
   def show
+    require 'pry'
+    binding.pry
     user = fetch_user_if_readable(hashed_params[:guid])
     user_not_found! unless user
 
@@ -38,6 +42,8 @@ class UsersController < ApplicationController
   end
 
   def create
+      require 'pry'
+    binding.pry
     message = UserCreateMessage.new(hashed_params[:body])
     unauthorized! unless permission_queryer.can_write_globally? || org_managers_can_create_users?
     unprocessable!(message.errors.full_messages) unless message.valid?
@@ -64,6 +70,8 @@ class UsersController < ApplicationController
   end
 
   def update
+      require 'pry'
+    binding.pry
     user = fetch_user_if_readable(hashed_params[:guid])
     user_not_found! unless user
 

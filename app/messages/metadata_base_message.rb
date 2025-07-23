@@ -15,6 +15,8 @@ module VCAP::CloudController
     validates_with MetadataValidator, if: metadata_requested?
 
     def labels
+      require 'pry'
+      binding.pry
       HashUtils.dig(metadata, :labels)
     end
 

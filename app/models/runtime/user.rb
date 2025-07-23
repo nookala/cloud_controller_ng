@@ -52,6 +52,7 @@ module VCAP::CloudController
 
     one_to_many :labels, class: 'VCAP::CloudController::UserLabelModel', key: :resource_guid, primary_key: :guid
     one_to_many :annotations, class: 'VCAP::CloudController::UserAnnotationModel', key: :resource_guid, primary_key: :guid
+    one_to_many :tnz_user_attributes, class: 'VCAP::CloudController::TnzUserAttributeModel', key: :user_guid, primary_key: :guid
 
     add_association_dependencies organizations: :nullify
     add_association_dependencies managed_organizations: :nullify
@@ -63,6 +64,7 @@ module VCAP::CloudController
     add_association_dependencies supported_spaces: :nullify
     add_association_dependencies labels: :destroy
     add_association_dependencies annotations: :destroy
+    add_association_dependencies tnz_user_attributes: :destroy
 
     export_attributes :admin, :active, :default_space_guid
 

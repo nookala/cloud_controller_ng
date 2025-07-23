@@ -344,6 +344,9 @@ module VCAP::CloudController
     organization      { Organization.make }
   end
 
+  TnzUserAttributeModel.blueprint do
+  end
+
   SpaceSupporter.blueprint do
     guid { Sham.guid }
     user { User.make }

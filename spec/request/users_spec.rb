@@ -515,6 +515,8 @@ RSpec.describe 'Users Request' do
       let(:user_header) { headers_for(user, scopes: %w[cloud_controller.read]) }
 
       it 'returns 200 when showing current user' do
+        require 'pry'
+        binding.pry
         get "/v3/users/#{user.guid}", nil, user_header
         expect(last_response).to have_status_code(200)
         expect(parsed_response).to include('guid' => user.guid)

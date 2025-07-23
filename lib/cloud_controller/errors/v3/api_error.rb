@@ -6,6 +6,8 @@ module CloudController
     module V3
       class ApiError < Errors::ApiError
         def self.new_from_details(name, *args)
+          require 'pry'
+          binding.pry
           details = V3::Details.new(name)
           new(details, args)
         end
