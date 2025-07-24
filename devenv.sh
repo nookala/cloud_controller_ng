@@ -19,7 +19,7 @@ help_command() {
 # Create a clean development environment
 create_command(){
   docker-compose -p "" down
-  docker buildx bake -f docker-compose.yml &
+  docker --tls buildx bake -f docker-compose.yml &
   docker-compose -p "" pull &
   wait $(jobs -p)
   docker-compose -p "" up -d --build

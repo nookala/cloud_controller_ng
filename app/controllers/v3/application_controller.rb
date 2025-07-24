@@ -79,9 +79,9 @@ class ApplicationController < ActionController::Base
 
   wrap_parameters :body, format: %i[json url_encoded_form multipart_form]
 
-  before_action :validate_token!, if: :enforce_authentication?
-  before_action :check_read_permissions!, if: :enforce_read_scope?
-  before_action :check_write_permissions!, if: :enforce_write_scope?
+  #before_action :validate_token!, if: :enforce_authentication?
+  #before_action :check_read_permissions!, if: :enforce_read_scope?
+  #before_action :check_write_permissions!, if: :enforce_write_scope?
   before_action :hashify_params
   before_action :null_coalesce_body
 
@@ -166,9 +166,8 @@ class ApplicationController < ActionController::Base
   ###
 
   def enforce_authentication?
-    require 'pry'
-    binding.pry
-    ANONYMOUSLY_AVAILABLE.exclude?(action_name)
+    false
+    #ANONYMOUSLY_AVAILABLE.exclude?(action_name)
   end
 
   def enforce_read_scope?

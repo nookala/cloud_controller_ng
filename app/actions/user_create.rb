@@ -15,7 +15,10 @@ module VCAP::CloudController
       end
       user = User.create(guid: user_guid)
       User.db.transaction do
+        require 'pry'
+        binding.pry
         MetadataUpdate.update(user, message)
+        RateLimitsUpdate.update(user,message)
       end
 
       user

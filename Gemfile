@@ -43,6 +43,7 @@ gem 'talentbox-delayed_job_sequel', '~> 4.3.0'
 gem 'thin'
 gem 'uri', '~> 0.13'
 gem 'vmstat', '~> 2.3'
+gem 'pry-byebug'
 
 # Rails Components
 gem 'actionpack', '~> 8.0.2'
@@ -72,6 +73,7 @@ group :operations do
 end
 
 group :test do
+  gem 'pry-byebug'
   gem 'codeclimate-test-reporter', '>= 1.0.8', require: false
   gem 'machinist', '~> 1.0.6'
   gem 'mock_redis'
@@ -96,6 +98,7 @@ group :test do
 end
 
 group :development do
+  gem 'pry-byebug'
   gem 'byebug'
   gem 'debug', '~> 1.11'
   gem 'listen'
