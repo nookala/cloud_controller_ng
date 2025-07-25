@@ -13,6 +13,16 @@ module VCAP::CloudController
 
     class RateLimitsValidator < ActiveModel::Validator
       def validate(record)
+        self.record = record
+
+        unless record.rate_limits.is_a? Hash
+          record.errors.add(:rate_limits, 'must be an object')
+        return
+      end
+
+      invalid_keys = record.rate_limits.except(:custom_request_limit).keys
+      unexpected_keys = invalid_keys.map { |val| "'" << val.to_s << "'" }.join(' ')
+      record.errors.add(:rate_limits, "has unexpected field(s): #{unexpected_keys}") unless invalid_keys.empty?
         # if record.guid
         #   record.errors.add(:username, message: "cannot be provided with 'guid'") if record.username
         #   record.errors.add(:origin, message: "cannot be provided with 'guid'") if record.origin
@@ -29,7 +39,7 @@ module VCAP::CloudController
     validates_with RateLimitsValidator, if: rate_limits_requested?
 
     def custom_request_limit
-      HashUtils.dig(metadata, :custom_request_limit)
+      HashUtils.dig(rate_limits, :custom_request_limit)
     end
 
   end

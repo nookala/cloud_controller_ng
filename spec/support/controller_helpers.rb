@@ -91,6 +91,10 @@ module ControllerHelpers
     decoded_response['metadata']
   end
 
+  def rate_limits
+    decoded_response['rate_limits']
+  end
+
   def entity
     decoded_response['entity']
   end

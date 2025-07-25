@@ -515,8 +515,6 @@ RSpec.describe 'Users Request' do
       let(:user_header) { headers_for(user, scopes: %w[cloud_controller.read]) }
 
       it 'returns 200 when showing current user' do
-        require 'pry'
-        binding.pry
         get "/v3/users/#{user.guid}", nil, user_header
         expect(last_response).to have_status_code(200)
         expect(parsed_response).to include('guid' => user.guid)
@@ -625,6 +623,67 @@ RSpec.describe 'Users Request' do
           expect(parsed_response['errors'][0]['detail']).to match(/annotation [\w\s]+ error/)
         end
       end
+    end
+
+    describe 'rate_limits' do
+      before do
+        allow(uaa_client).to receive(:users_for_ids).with(['new-user-guid']).and_return(
+          {
+            'new-user-guid' => {
+              'username' => 'my-new-user',
+              'origin' => 'uaa'
+            }
+          }
+        )
+      end
+
+      let(:user_json) do
+        {
+          guid: params[:guid],
+          created_at: iso8601,
+          updated_at: iso8601,
+          username: 'my-new-user',
+          presentation_name: 'my-new-user',
+          origin: 'uaa',
+          metadata: {
+          },
+          rate_limits: {
+            custom_request_limit: 5000
+          }
+          links: {
+            self: { href: %r{#{Regexp.escape(link_prefix)}/v3/users/#{params[:guid]}} }
+          }
+        }
+      end
+
+      context 'when rate_limits are valid' do
+        it 'returns a 201' do
+          post '/v3/users', {
+            guid: params[:guid],
+            rate_limits: {
+              custom_request_limit: 5000
+            }
+          }.to_json, admin_header
+
+          expect(parsed_response).to match_json_response(user_json)
+          expect(last_response).to have_status_code(201)
+        end
+      end
+
+      # context 'when rate_limits is invalid' do
+      #   it 'returns a 422' do
+      #     post '/v3/users', {
+      #       rate_limits: {
+      #         custom_request_limit: { '': 'invalid' },
+      #         annotations: { "#{'a' * 1001}": 'value2' }
+      #       }
+      #     }.to_json, admin_header
+
+      #     expect(last_response).to have_status_code(422)
+      #     expect(parsed_response['errors'][0]['detail']).to match(/label [\w\s]+ error/)
+      #     expect(parsed_response['errors'][0]['detail']).to match(/annotation [\w\s]+ error/)
+      #   end
+      # end
     end
 
     describe 'when creating a user that does not exist in uaa' do
