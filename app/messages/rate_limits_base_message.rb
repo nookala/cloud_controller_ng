@@ -17,22 +17,21 @@ module VCAP::CloudController
 
         unless record.rate_limits.is_a? Hash
           record.errors.add(:rate_limits, 'must be an object')
-        return
-      end
+          return
+        end
 
-      invalid_keys = record.rate_limits.except(:custom_request_limit).keys
-      unexpected_keys = invalid_keys.map { |val| "'" << val.to_s << "'" }.join(' ')
-      record.errors.add(:rate_limits, "has unexpected field(s): #{unexpected_keys}") unless invalid_keys.empty?
-        # if record.guid
-        #   record.errors.add(:username, message: "cannot be provided with 'guid'") if record.username
-        #   record.errors.add(:origin, message: "cannot be provided with 'guid'") if record.origin
-        # elsif record.username || record.origin
-        #   record.errors.add(:origin, message: "can only be provided together with 'username'") unless record.username
-        #   record.errors.add(:username, message: "can only be provided together with 'origin'") unless record.origin
-        #   record.errors.add(:origin, message: "cannot be 'uaa' when creating a user by username") unless record.origin != 'uaa'
-        # else
-        #   record.errors.add(:guid, message: "or 'username' and 'origin' must be provided")
-        # end
+        unless rate_limits.key?(:custom_request_limit)
+          record.errors.add(:rate_limits, 'missing key custom_request_limit')
+          return
+        end
+
+        invalid_keys = record.rate_limits.except(:custom_request_limit).keys
+        unexpected_keys = invalid_keys.map { |val| "'" << val.to_s << "'" }.join(' ')
+        record.errors.add(:rate_limits, "has unexpected field(s): #{unexpected_keys}") unless invalid_keys.empty?
+        custom_request_limit = record.custom_request_limit
+        unless custom_request_limit.empty? || custom_request_limit.is_a?(Integer)
+          record.errors.add(:rate_limits, "unexpected value #{custom_request_limit} for key custom_request_limit")
+        end
       end
     end
 
@@ -41,6 +40,5 @@ module VCAP::CloudController
     def custom_request_limit
       HashUtils.dig(rate_limits, :custom_request_limit)
     end
-
   end
 end
